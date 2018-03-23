@@ -1,6 +1,7 @@
 # Hands-On-GPU-Programming-with-Python-and-CUDA
 Hands-On GPU Programming with Python and CUDA, published by Packt
 
+Important note:
 > This book is under active development and is expected to be published in August, 2018
 
 ## Hardware and Software Requirements
