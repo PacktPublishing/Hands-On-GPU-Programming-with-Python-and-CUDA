@@ -1,3 +1,4 @@
+from __future__ import division
 import pycuda.autoinit
 import pycuda.driver as drv
 import numpy as np
@@ -12,13 +13,14 @@ from time import time
 up_ker = SourceModule("""
 __global__ void up_ker(double *x, double *x_old, int k )
 {
-     int j =  blockIdx.x*blockDim.x + threadIdx.x;
+     int tid =  blockIdx.x*blockDim.x + threadIdx.x;
      
      int _2k = 1 << k;
      int _2k1 = 1 << (k+1);
      
-     if (j % _2k1 == 0)
-         x[j + _2k1 - 1] = x_old[j + _2k -1 ] + x_old[j + _2k1 - 1];
+     int j = tid* _2k1;
+     
+     x[j + _2k1 - 1] = x_old[j + _2k -1 ] + x_old[j + _2k1 - 1];
 
 }
 """)
@@ -32,7 +34,15 @@ def up_sweep(x):
     x_gpu = gpuarray.to_gpu(np.float64(x) )
     x_old_gpu = x_gpu.copy()
     for k in range( int(np.log2(x.size) ) ) : 
-        up_gpu(x_gpu, x_old_gpu, np.int32(k)  , block=(32,1,1), grid=(int(x.size)/32,1,1))
+        num_threads = int(np.ceil( x.size / 2**(k+1)))
+        grid_size = int(np.ceil(num_threads / 32))
+        
+        if grid_size > 1:
+            block_size = 32
+        else:
+            block_size = num_threads
+            
+        up_gpu(x_gpu, x_old_gpu, np.int32(k)  , block=(block_size,1,1), grid=(grid_size,1,1))
         x_old_gpu[:] = x_gpu[:]
         
     x_out = x_gpu.get()
@@ -42,16 +52,15 @@ def up_sweep(x):
 down_ker = SourceModule("""
 __global__ void down_ker(double *y, double *y_old,  int k)
 {
-     int j =  blockIdx.x*blockDim.x + threadIdx.x;
+     int tid =  blockIdx.x*blockDim.x + threadIdx.x;
      
      int _2k = 1 << k;
      int _2k1 = 1 << (k+1);
      
-     if (j % _2k1 == 0)
-     {
-         y[j + _2k - 1 ] = y_old[j + _2k1 - 1];
-         y[j + _2k1 - 1] = y_old[j + _2k1 - 1] + y_old[j + _2k - 1];
-     }
+     int j = tid*_2k1;
+     
+     y[j + _2k - 1 ] = y_old[j + _2k1 - 1];
+     y[j + _2k1 - 1] = y_old[j + _2k1 - 1] + y_old[j + _2k - 1];
 }
 """)
 
@@ -65,7 +74,15 @@ def down_sweep(y):
     y_gpu = gpuarray.to_gpu(y)
     y_old_gpu = y_gpu.copy()
     for k in reversed(range(int(np.log2(y.size)))):
-        down_gpu(y_gpu, y_old_gpu, np.int32(k), block=(32,1,1), grid=(int(y.size)/32,1,1))
+        num_threads = int(np.ceil( y.size / 2**(k+1)))
+        grid_size = int(np.ceil(num_threads / 32))
+        
+        if grid_size > 1:
+            block_size = 32
+        else:
+            block_size = num_threads
+            
+        down_gpu(y_gpu, y_old_gpu, np.int32(k), block=(block_size,1,1), grid=(grid_size,1,1))
         y_old_gpu[:] = y_gpu[:]
     y_out = y_gpu.get()
     return(y_out)
@@ -80,7 +97,7 @@ def efficient_prefix(x):
 if __name__ == '__main__':
     
     
-    testvec = np.random.randn(16*1024).astype(np.float64)
+    testvec = np.random.randn(32*1024).astype(np.float64)
     testvec_gpu = gpuarray.to_gpu(testvec)
     
     outvec_gpu = gpuarray.empty_like(testvec_gpu)
