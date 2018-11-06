@@ -4,6 +4,9 @@ Hands-On GPU Programming with Python and CUDA, published by Packt
 Important note:
 > This book is under active development and is expected to be published in December, 2018
 
+## A Note to Readers
+Each chapter's example code is available in the corresponding directory.  (The examples for chapter 1 are under "1", examples for chapter 2 are in "2", and so on.)
+
 ## Hardware and Software Requirements
 In this text, we will assume that you have a Pascal (2016-era) Nvidia GPU, or later; you should have at least have an entry-level Pascal GTX 1050, or the equivalent.  Generally speaking, you will be able to work through this book with almost any entry-level gaming PC released in 2016 or later that has an Nvidia GPU.  (While the examples haven't been tested on older GPUs, an older 2014-era entry level Maxwell architecture GPU such as a GTX 750 should be sufficient for purposes of this text.)
 
