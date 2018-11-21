@@ -85,4 +85,5 @@ if __name__ == '__main__':
     conway_ker(lattice_gpu, np.int32(100000), grid=(1,1,1), block=(32,32,1))
     fig = plt.figure(1)
     plt.imshow(lattice_gpu.get())
+    plt.show()
     
