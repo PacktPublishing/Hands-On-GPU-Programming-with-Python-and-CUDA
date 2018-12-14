@@ -39,11 +39,21 @@ With the following software and hardware list you can run all code files present
 ### Software and Hardware List
 | Chapter  | Software required                    | OS required                         |
 | -------- | ------------------------------------ | ----------------------------------- |
-| 1-11     | Anaconda 5 (Python 2.7 version)      | Windows, Mac OS X, and Linux (Any)  |
-| 2-11     | CUDA 9.2                             | Windows, Mac OS X, and Linux (Any)  |
-| 2-11     | PyCUDA (latest)                      | Windows, Mac OS X, and Linux (Any)  |
-| 7        | Scikit-CUDA (latest)                 | Windows, Mac OS X, and Linux (Any)  |
-| 2-11     | Visual Studio Community 2015         | Windows, Mac OS X, and Linux (Any)  |
+| 1-11     | Anaconda 5 (Python 2.7 version)      | Windows, Linux                      |
+| 2-11     | CUDA 9.2, CUDA 10.x                  | Windows, Linux                      |
+| 2-11     | PyCUDA (latest)                      | Windows, Linux                      |
+| 7        | Scikit-CUDA (latest)                 | Windows, Linux                      |
+| 2-11     | Visual Studio Community 2015         | Windows                             |
+| 2-11     | GCC, GDB, Eclipse                    | Linux                               |
+|----------|--------------------------------------|-------------------------------------|
+| Chapter  | Hardware required                    | OS required                         |
+| -------- | ------------------------------------ | ----------------------------------- |
+| 1-11     | 64-bit Intel/AMD PC                  | Windows, Linux                      |
+| 1-11     | 4 Gigabytes RAM                      | Windows, Linux                      |
+| 2-11     | NVIDIA GPU (GTX 1050 or better)      | Windows, Linux                      |
+
+
+
 
 We also provide a PDF file that has color images of the screenshots/diagrams used in this book. [Click here to download it](https://www.packtpub.com/sites/default/files/downloads/9781788993913_ColorImages.pdf).
 
