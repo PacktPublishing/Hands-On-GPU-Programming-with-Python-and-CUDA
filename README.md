@@ -45,7 +45,8 @@ With the following software and hardware list you can run all code files present
 | 7        | Scikit-CUDA (latest)                 | Windows, Linux                      |
 | 2-11     | Visual Studio Community 2015         | Windows                             |
 | 2-11     | GCC, GDB, Eclipse                    | Linux                               |
-|----------|--------------------------------------|-------------------------------------|
+
+
 | Chapter  | Hardware required                    | OS required                         |
 | -------- | ------------------------------------ | ----------------------------------- |
 | 1-11     | 64-bit Intel/AMD PC                  | Windows, Linux                      |
