@@ -49,8 +49,8 @@ if __name__ == '__main__':
     
     dump_time = t2 - t1
     
-    print 'It took {} seconds to calculate the Mandelbrot graph.'.format(mandel_time)
-    print 'It took {} seconds to dump the image.'.format(dump_time)
+    print('It took {} seconds to calculate the Mandelbrot graph.'.format(mandel_time))
+    print('It took {} seconds to dump the image.'.format(dump_time))
     
     
     

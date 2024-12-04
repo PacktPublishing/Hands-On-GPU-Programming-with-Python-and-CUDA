@@ -70,6 +70,6 @@ kernel_times = []
 for k in range(num_arrays):
     kernel_times.append(start_events[k].time_till(end_events[k]))
 
-print 'Total time: %f' % (t_end - t_start)
-print 'Mean kernel duration (milliseconds): %f' % np.mean(kernel_times)
-print 'Mean kernel standard deviation (milliseconds): %f' % np.std(kernel_times)
+print('Total time: %f' % (t_end - t_start))
+print('Mean kernel duration (milliseconds): %f' % np.mean(kernel_times))
+print('Mean kernel standard deviation (milliseconds): %f' % np.std(kernel_times))

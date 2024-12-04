@@ -57,5 +57,5 @@ def compute_gflops(precision='S'):
 	return gflops
 
 if __name__ == '__main__':
-	print 'Single-precision performance: %s GFLOPS' % compute_gflops('S')
-	print 'Double-precision performance: %s GFLOPS' % compute_gflops('D')
+	print('Single-precision performance: %s GFLOPS' % compute_gflops('S'))
+	print('Double-precision performance: %s GFLOPS' % compute_gflops('D'))

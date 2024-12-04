@@ -137,5 +137,5 @@ if __name__ == '__main__':
     
     for f, lo, hi, expected in integral_tests:
         mci = MonteCarloIntegrator(math_function=f, precision='d', lo=lo, hi=hi)
-        print 'The Monte Carlo numerical integration of the function\n \t f: x -> %s \n \t from x = %s to x = %s is : %s ' % (f, lo, hi, mci.definite_integral())
-        print 'where the expected value is : %s\n' % expected
+        print('The Monte Carlo numerical integration of the function\n \t f: x -> %s \n \t from x = %s to x = %s is : %s ' % (f, lo, hi, mci.definite_integral()))
+        print('where the expected value is : %s\n' % expected)

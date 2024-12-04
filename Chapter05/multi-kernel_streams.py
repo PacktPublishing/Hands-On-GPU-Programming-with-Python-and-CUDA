@@ -61,4 +61,4 @@ t_end = time()
 for k in range(num_arrays):
     assert (np.allclose(gpu_out[k], data[k]))
 
-print 'Total time: %f' % (t_end - t_start)
+print('Total time: %f' % (t_end - t_start))

@@ -1,4 +1,4 @@
-from __future__ import division
+
 import numpy as np
 from pycuda.compiler import SourceModule
 import pycuda.autoinit
@@ -32,6 +32,6 @@ ints = gpuarray.to_gpu(np.int32([1,2,3,4,5,6,7,8]))
 doubles = gpuarray.to_gpu(np.double([1.11,2.22,3.33,4.44]))
 
 
-print 'Vectorized Memory Test:'
+print('Vectorized Memory Test:')
 
 vec_ker(ints, doubles, grid=(1,1,1), block=(1,1,1))

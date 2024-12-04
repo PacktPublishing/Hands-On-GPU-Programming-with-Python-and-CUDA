@@ -1,4 +1,4 @@
-from __future__ import division
+
 import pycuda.autoinit
 import pycuda.driver as drv
 import numpy as np
@@ -73,7 +73,7 @@ def down_sweep(y):
     y[-1] = 0
     y_gpu = gpuarray.to_gpu(y)
     y_old_gpu = y_gpu.copy()
-    for k in reversed(range(int(np.log2(y.size)))):
+    for k in reversed(list(range(int(np.log2(y.size))))):
         num_threads = int(np.ceil( y.size / 2**(k+1)))
         grid_size = int(np.ceil(num_threads / 32))
         
@@ -107,6 +107,6 @@ if __name__ == '__main__':
     
     prefix_sum_gpu = efficient_prefix(testvec)
     
-    print "Does our work-efficient prefix work? {}".format(np.allclose(prefix_sum_gpu, prefix_sum))
+    print("Does our work-efficient prefix work? {}".format(np.allclose(prefix_sum_gpu, prefix_sum)))
     
     

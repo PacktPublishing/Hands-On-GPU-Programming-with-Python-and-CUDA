@@ -49,4 +49,4 @@ if __name__ == '__main__':
     total_sum = sum( testvec)
     total_sum_gpu = outvec_gpu[-1].get()
     
-    print "Does our kernel work correctly? : {}".format(np.allclose(total_sum_gpu , total_sum) )
+    print("Does our kernel work correctly? : {}".format(np.allclose(total_sum_gpu , total_sum) ))

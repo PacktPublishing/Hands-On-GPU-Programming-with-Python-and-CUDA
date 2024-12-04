@@ -1,11 +1,11 @@
-from __future__ import division
+
 import pycuda.autoinit
 import pycuda.driver as drv
 from pycuda import gpuarray
 from pycuda.compiler import SourceModule
 from pycuda.elementwise import ElementwiseKernel
 import numpy as np
-from Queue import Queue
+from queue import Queue
 import csv
 from time import time
 
@@ -401,7 +401,7 @@ class SequentialNetwork:
         else:
             batch_size = 1
         
-        for i in xrange(len(self.network)):
+        for i in range(len(self.network)):
             self.network[i].eval_(x=self.network_mem[i], y = self.network_mem[i+1], batch_size=batch_size, stream = stream)
             
         y = self.network_mem[-1].get_async(stream=stream)
@@ -416,7 +416,7 @@ class SequentialNetwork:
         
         self.network[layer_index].eval_(x=self.network_mem[layer_index], y = partial_mem[layer_index+1], batch_size=batch_size, stream = stream, w_t=w_t, b_t=b_t, delta=delta)
         
-        for i in xrange(layer_index+1, len(self.network)):
+        for i in range(layer_index+1, len(self.network)):
             self.network[i].eval_(x=partial_mem[i], y =partial_mem[i+1], batch_size=batch_size, stream = stream)
 
             
@@ -447,14 +447,14 @@ class SequentialNetwork:
         
         # create the streams needed for training
         
-        for _ in xrange(max_streams):
+        for _ in range(max_streams):
             streams.append(drv.Stream())
             bgd_mem.append([])
             
         
         # allocate memory for each stream
         
-        for i in xrange(len(bgd_mem)):
+        for i in range(len(bgd_mem)):
             for mem_bank in self.network_mem:
                 bgd_mem[i].append( gpuarray.empty_like(mem_bank) )
         
@@ -466,20 +466,20 @@ class SequentialNetwork:
         if batch_size is None:
             batch_size = self.max_batch_size
         
-        index = range(training.shape[0])
+        index = list(range(training.shape[0]))
         
-        for k in xrange(epochs):    
+        for k in range(epochs):    
             
-            print '-----------------------------------------------------------'
-            print 'Starting training epoch: %s' % k
-            print 'Batch size: %s , Total number of training samples: %s' % (batch_size, num_points)
-            print '-----------------------------------------------------------'
+            print('-----------------------------------------------------------')
+            print('Starting training epoch: %s' % k)
+            print('Batch size: %s , Total number of training samples: %s' % (batch_size, num_points))
+            print('-----------------------------------------------------------')
             
             all_grad = []
             
             np.random.shuffle(index)
             
-            for r in xrange( int(np.floor(training.shape[0] / batch_size)) ):
+            for r in range( int(np.floor(training.shape[0] / batch_size)) ):
             
                 batch_index = index[r*batch_size:(r+1)*batch_size] 
                 
@@ -490,11 +490,11 @@ class SequentialNetwork:
         
                 cur_entropy = cross_entropy(predictions=batch_predictions, ground_truth=batch_labels)
                 
-                print 'entropy: %s' % cur_entropy
+                print('entropy: %s' % cur_entropy)
                 
                 # need to iterate over each weight / bias , check entropy
                 
-                for i in xrange(len(self.network)):
+                for i in range(len(self.network)):
                     
                     if self.network_summary[i][0] != 'dense':
                         continue
@@ -504,17 +504,17 @@ class SequentialNetwork:
                     grad_w = np.zeros((self.network[i].weights.size,), dtype=np.float32)
                     grad_b = np.zeros((self.network[i].b.size,), dtype=np.float32)
                     
-                    for w in xrange( self.network[i].weights.size ):
+                    for w in range( self.network[i].weights.size ):
                         all_weights.put( ('w', np.int32(w) ) )
                         
-                    for b in xrange( self.network[i].b.size ):
+                    for b in range( self.network[i].b.size ):
                         all_weights.put(('b', np.int32(b) ) )
                         
                     while not all_weights.empty():
                         
                         stream_weights = Queue()
                         
-                        for j in xrange(max_streams):
+                        for j in range(max_streams):
                             
                             if all_weights.empty():
                                 break
@@ -532,7 +532,7 @@ class SequentialNetwork:
                             
                             self.partial_predict(layer_index=i, w_t=w_t, b_t=b_t, partial_mem=bgd_mem[j], stream=streams[j], batch_size=batch_size, delta=delta)
                             
-                        for j in xrange(max_streams):
+                        for j in range(max_streams):
                             
                             if stream_weights.empty():
                                 break
@@ -554,7 +554,7 @@ class SequentialNetwork:
                         
                     all_grad.append([np.reshape(grad_w,self.network[i].weights.shape) , grad_b])
             
-            for i in xrange(len(self.network)):
+            for i in range(len(self.network)):
                 
                 if self.network_summary[i][0] == 'dense':
                 
@@ -644,5 +644,5 @@ if __name__ == '__main__':
              hits += 1
      
      
-     print 'Percentage Correct Classifications: %s' % (float(hits ) / ctest.shape[0])
-     print 'Total Training Time: %s' % training_time
+     print('Percentage Correct Classifications: %s' % (float(hits ) / ctest.shape[0]))
+     print('Total Training Time: %s' % training_time)

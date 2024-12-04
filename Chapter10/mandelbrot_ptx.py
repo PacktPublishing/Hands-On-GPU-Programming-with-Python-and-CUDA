@@ -1,4 +1,4 @@
-from __future__ import division
+
 from time import time
 import matplotlib
 from matplotlib import pyplot as plt
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
     mandel_time = t2 - t1
 
-    print 'It took %s seconds to calculate the Mandelbrot graph.' % mandel_time
+    print('It took %s seconds to calculate the Mandelbrot graph.' % mandel_time)
     
     plt.figure(1)
     plt.imshow(mandel, extent=(-2, 2, -2, 2))

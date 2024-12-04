@@ -1,4 +1,4 @@
-from __future__ import division
+
 import numpy as np
 from pycuda.compiler import SourceModule
 import pycuda.autoinit
@@ -34,6 +34,6 @@ max_out = gpuarray.empty((1,), dtype=np.int32)
 atomic_ker(add_out, max_out, grid=(1,1,1), block=(100,1,1))
 drv.Context.synchronize()
 
-print 'Atomic operations test:'
-print 'add_out: %s' % add_out.get()[0]
-print 'max_out: %s' % max_out.get()[0]
+print('Atomic operations test:')
+print('add_out: %s' % add_out.get()[0])
+print('max_out: %s' % max_out.get()[0])

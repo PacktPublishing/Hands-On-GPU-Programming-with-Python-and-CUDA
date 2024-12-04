@@ -64,7 +64,7 @@ est_pi_symbolic =  Rational(4)*Rational(int(total_hits), int(total) )
 
 est_pi = np.float(est_pi_symbolic.evalf())
 
-print "Our Monte Carlo estimate of Pi is : %s" % est_pi
-print "NumPy's Pi constant is: %s " % np.pi
+print("Our Monte Carlo estimate of Pi is : %s" % est_pi)
+print("NumPy's Pi constant is: %s " % np.pi)
 
-print "Our estimate passes NumPy's 'allclose' : %s" % np.allclose(est_pi, np.pi)
+print("Our estimate passes NumPy's 'allclose' : %s" % np.allclose(est_pi, np.pi))

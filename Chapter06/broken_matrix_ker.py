@@ -61,8 +61,8 @@ __global__ void matrix_mult_ker(float * matrix_a, float * matrix_b, float * outp
 
 matrix_ker = ker.get_function('matrix_mult_ker')
 
-test_a = np.float32( [xrange(1,5)] * 4 )
-test_b = np.float32([xrange(14,10, -1)]*4 )
+test_a = np.float32( [range(1,5)] * 4 )
+test_b = np.float32([range(14,10, -1)]*4 )
 
 output_mat = np.matmul(test_a, test_b)
 

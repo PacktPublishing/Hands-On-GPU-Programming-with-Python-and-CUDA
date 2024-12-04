@@ -20,4 +20,4 @@ outvec_gpu = gpuarray.empty_like(testvec_gpu)
 
 scalar_multiply_gpu( outvec_gpu, np.float32(2), testvec_gpu, block=(512,1,1), grid=(1,1,1))
 
-print "Does our kernel work correctly? : {}".format(np.allclose(outvec_gpu.get() , 2*testvec) )
+print("Does our kernel work correctly? : {}".format(np.allclose(outvec_gpu.get() , 2*testvec) ))

@@ -40,8 +40,8 @@ end_event.record()
 
 end_event.synchronize()
 
-print 'Has the kernel started yet? {}'.format(start_event.query())
-print 'Has the kernel ended yet? {}'.format(end_event.query())
+print('Has the kernel started yet? {}'.format(start_event.query()))
+print('Has the kernel ended yet? {}'.format(end_event.query()))
 
-print 'Kernel execution time in milliseconds: %f ' % start_event.time_till(end_event)
+print('Kernel execution time in milliseconds: %f ' % start_event.time_till(end_event))
 

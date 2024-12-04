@@ -7,6 +7,6 @@ dev = drv.Device(0)
 ctx = dev.make_context()
 
 x = gpuarray.to_gpu(np.float32([1,2,3]))
-print x.get()
+print(x.get())
 
 ctx.pop()
